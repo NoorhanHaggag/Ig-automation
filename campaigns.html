@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Campaigns — Comment→DM{% endblock %}
+{% block content %}
+<header class="stage-head">
+  <div>
+    <p class="eyebrow">Automation</p>
+    <h1>Campaigns</h1>
+    <p class="sub">Each campaign watches one post for keyword comments, replies publicly, and sends the commenter a DM.</p>
+  </div>
+  <button id="new-campaign-btn" class="btn btn-primary">+ New campaign</button>
+</header>
+
+<section id="campaign-list" class="campaign-list">
+  <p class="empty-state">Loading campaigns…</p>
+</section>
+
+<div id="campaign-modal" class="modal-backdrop hidden">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modal-title">New campaign</h2>
+      <button id="modal-close" class="btn-icon" aria-label="Close">✕</button>
+    </div>
+    <form id="campaign-form" class="form-grid">
+      <input type="hidden" id="campaign_id" name="id">
+
+      <label class="field">
+        <span class="field-label">Post ID</span>
+        <input type="text" id="post_id" name="post_id" placeholder="e.g. 17895695668004550" required>
+        <span class="field-hint">Find this via Graph API Explorer — see README.</span>
+      </label>
+
+      <div id="post-preview" class="post-preview hidden">
+        <img id="preview-thumb" alt="Post thumbnail">
+        <p id="preview-caption"></p>
+      </div>
+
+      <label class="field">
+        <span class="field-label">Trigger keywords</span>
+        <input type="text" id="keywords" name="keywords" placeholder="price, link, info" required>
+        <span class="field-hint">Comma-separated. Case-insensitive, matches anywhere in the comment.</span>
+      </label>
+
+      <label class="field">
+        <span class="field-label">Public comment reply</span>
+        <textarea id="comment_reply_text" name="comment_reply_text" rows="2" placeholder="Thanks! Check your DMs 📩" required></textarea>
+      </label>
+
+      <label class="field">
+        <span class="field-label">DM message</span>
+        <textarea id="dm_message_text" name="dm_message_text" rows="3" placeholder="Hey! Here's the link you asked for: ..." required></textarea>
+      </label>
+
+      <label class="field field-inline">
+        <input type="checkbox" id="is_active" name="is_active" checked>
+        <span class="field-label">Active</span>
+      </label>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save campaign</button>
+        <span id="campaign-form-status" class="form-status"></span>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/campaigns.js"></script>
+{% endblock %}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Comment-to-DM{% endblock %}</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="rail">
+    <div class="brand">
+      <span class="brand-mark">◎</span>
+      <span class="brand-name">Comment&nbsp;→&nbsp;DM</span>
+    </div>
+    <nav class="rail-nav">
+      <a href="/dashboard/campaigns" class="{{ 'active' if active_page == 'campaigns' else '' }}">
+        <span class="nav-label">Campaigns</span>
+      </a>
+      <a href="/dashboard/settings" class="{{ 'active' if active_page == 'settings' else '' }}">
+        <span class="nav-label">Settings</span>
+      </a>
+    </nav>
+    <div class="rail-foot">
+      <span id="conn-dot" class="dot dot-unknown"></span>
+      <span id="conn-text">Checking connection…</span>
+    </div>
+  </aside>
+
+  <main class="stage">
+    {% block content %}{% endblock %}
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="/static/app.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

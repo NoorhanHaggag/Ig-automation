@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Settings — Comment→DM{% endblock %}
+{% block content %}
+<header class="stage-head">
+  <div>
+    <p class="eyebrow">Account</p>
+    <h1>Connection settings</h1>
+    <p class="sub">Credentials for the Instagram Graph API. These are only used server-side to sign requests — never sent back to this page in full.</p>
+  </div>
+</header>
+
+<section class="panel">
+  <form id="config-form" class="form-grid">
+    <label class="field">
+      <span class="field-label">Access token</span>
+      <input type="password" id="access_token" name="access_token" placeholder="Long-lived user access token" autocomplete="off">
+      <span class="field-hint">Generated in Graph API Explorer. Expires after 60 days — see README for the refresh flow.</span>
+    </label>
+
+    <label class="field">
+      <span class="field-label">Facebook Page ID</span>
+      <input type="text" id="page_id" name="page_id" placeholder="e.g. 102938475610283" autocomplete="off">
+      <span class="field-hint">The Facebook Page linked to your Instagram Business/Creator account.</span>
+    </label>
+
+    <label class="field">
+      <span class="field-label">Instagram Business Account ID</span>
+      <input type="text" id="instagram_business_account_id" name="instagram_business_account_id" placeholder="e.g. 178414... " autocomplete="off">
+      <span class="field-hint">Found via <code>GET /{page-id}?fields=instagram_business_account</code> in Graph API Explorer.</span>
+    </label>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Save settings</button>
+      <span id="config-status" class="form-status"></span>
+    </div>
+  </form>
+</section>
+
+<section class="panel panel-quiet">
+  <h2>Webhook</h2>
+  <p class="sub">Point your Facebook App's webhook subscription to:</p>
+  <code class="code-block" id="webhook-url">POST https://YOUR-DEPLOYED-DOMAIN/webhook/instagram</code>
+  <p class="sub">Subscribe to the <strong>comments</strong> field on your Instagram Business Account. Full walkthrough is in the README.</p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>document.getElementById('webhook-url').textContent = 'POST ' + window.location.origin + '/webhook/instagram';</script>
+{% endblock %}
